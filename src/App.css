@@ -8,6 +8,7 @@
 .App-result  {
   padding: 0 10vw;
   max-width: 600px;
+  margin: auto;
 }
 
 .App-result__image {
