@@ -75,7 +75,7 @@ export const App = () => {
         <div className="App-result">
           <img
             className="App-result__image"
-            src={`/assets/${position.image}`}
+            src={position.image}
             alt="error"
           />
           <div className="App-result__description">
