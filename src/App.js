@@ -81,7 +81,8 @@ export const App = () => {
         filters.added === position.added
       ) && (
         !filters.furniture ||
-        filters.furniture === position.furniture
+        !position.furniture.length ||
+        position.furniture.includes(filters.furniture)
       ) && (
         !filters.kind ||
         position.kind.length <= 0 ||

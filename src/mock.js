@@ -22,7 +22,7 @@ import x_factor from './assets/x_factor.jpg'
 export const positions = [
   {
     name: 'Штопор',
-    furniture: 'стол',
+    furniture: ['стол'],
     added: '',
     for: 'для обоих',
     kind: ['обычный'],
@@ -31,7 +31,7 @@ export const positions = [
   },
   {
     name: 'Тачка',
-    furniture: '',
+    furniture: ['стоя'],
     added: '',
     for: 'для обоих',
     kind: ['обычный'],
@@ -40,7 +40,7 @@ export const positions = [
   },
   {
     name: 'Наклон вперед',
-    furniture: '',
+    furniture: ['стоя'],
     added: '',
     for: 'для обоих',
     kind: ['обычный'],
@@ -49,7 +49,7 @@ export const positions = [
   },
   {
     name: 'Икс',
-    furniture: '',
+    furniture: ['кровать', 'пол'],
     added: '',
     for: 'для обоих',
     kind: ['обычный'],
@@ -58,7 +58,7 @@ export const positions = [
   },
   {
     name: 'Взбиваем масло',
-    furniture: '',
+    furniture: ['стоя'],
     added: '',
     for: 'для обоих',
     kind: ['обычный'],
@@ -67,7 +67,7 @@ export const positions = [
   },
   {
     name: 'Тачка сидя',
-    furniture: '',
+    furniture: ['кровать', 'стул'],
     added: '',
     for: 'для обоих',
     kind: ['обычный'],
@@ -76,7 +76,7 @@ export const positions = [
   },
   {
     name: 'Снежный ангел',
-    furniture: '',
+    furniture: ['кровать', 'пол'],
     added: '',
     for: 'для обоих',
     kind: ['обычный'],
@@ -85,16 +85,16 @@ export const positions = [
   },
   {
     name: 'Тряпичная кукла',
-    furniture: '',
+    furniture: ['кровать'],
     added: 'веревка',
     for: 'для обоих',
-    kind: [']обычный'],
+    kind: ['обычный', 'пол'],
     image: kukla,
     description: 'Всем знакомая «ленивая» поза ложек может стать куда интереснее, если добавить пару элементов БДСМ. Запястья девушки связаны, одна ее нога вытянута, другая согнута в колене. Партнер находится сзади. Вишенкой на торте станут легкие (или жесткие?) шлепки по ягодицам.'
   },
   {
     name: 'Икс-фактор',
-    furniture: '',
+    furniture: ['кровать'],
     added: 'веревка',
     for: 'для обоих',
     kind: ['обычный'],
@@ -103,7 +103,7 @@ export const positions = [
   },
   {
     name: 'Руки вверх',
-    furniture: '',
+    furniture: ['стоя'],
     added: 'веревка',
     for: 'для кого-нибудь одного',
     kind: ['оральный', 'мастурбация'],
@@ -112,7 +112,7 @@ export const positions = [
   },
   // {
   //   name: 'Седьмое небо',
-  //   furniture: 'стул',
+  //   furniture: ['стул'],
   //   added: 'веревка',
   //   for: 'для обоих',
   //   kind: ['обычный'],
@@ -121,7 +121,7 @@ export const positions = [
   // },
   {
     name: 'БДСМ: Класическая поза',
-    furniture: '',
+    furniture: ['кровать', 'пол'],
     added: 'веревка',
     for: 'для обоих',
     kind: ['обычный'],
@@ -130,7 +130,7 @@ export const positions = [
   },
   {
     name: 'В темноте',
-    furniture: 'стул',
+    furniture: ['стул', 'кровать'],
     added: 'веревка',
     for: 'для кого-нибудь одного',
     kind: ['оральный', 'мастурбация'],
@@ -139,7 +139,7 @@ export const positions = [
   },
   {
     name: 'Мольбы о пощаде',
-    furniture: '',
+    furniture: ['кровать', 'пол'],
     added: 'веревка',
     for: 'для кого-нибудь одного',
     kind: ['оральный', 'мастурбация'],
@@ -148,7 +148,7 @@ export const positions = [
   },
   {
     name: 'Для нее',
-    furniture: '',
+    furniture: ['кровать', 'пол'],
     added: 'веревка',
     for: 'для тебя',
     kind: ['оральный'],
@@ -157,7 +157,7 @@ export const positions = [
   },
   {
     name: 'На столе',
-    furniture: 'стол',
+    furniture: ['стол'],
     added: 'виброкольцо',
     for: 'для обоих',
     kind: ['обычный'],
@@ -166,7 +166,7 @@ export const positions = [
   },
   {
     name: 'Ручные ласки',
-    furniture: '',
+    furniture: ['кровать'],
     added: 'виброкольцо',
     for: 'для кого-нибудь одного',
     kind: ['мастурбация'],
@@ -175,7 +175,7 @@ export const positions = [
   },
   {
     name: 'Секс-гонка',
-    furniture: '',
+    furniture: ['кровать'],
     added: 'вибратор',
     for: 'для обоих',
     kind: ['обычный', 'мастурбация'],
@@ -184,7 +184,7 @@ export const positions = [
   },
   {
     name: 'Под одеялом',
-    furniture: '',
+    furniture: ['кровать'],
     added: '',
     for: 'для обоих',
     kind: ['обычный', 'мастурбация'],
@@ -193,7 +193,7 @@ export const positions = [
   }
 ]
 
-export const furnitureVariants = ['стул', 'стол']
+export const furnitureVariants = ['стул', 'стол', 'кровать', 'пол', 'стоя']
 export const forVariants = ['для обоих', 'для кого-нибудь одного', 'для тебя', 'для меня']
 export const addedVariants = ['виброкольцо', 'веревка', 'вибратор']
 export const kindVariants = ['обычный', 'оральный', 'мастурбация']
