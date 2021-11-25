@@ -37,9 +37,24 @@ export const App = () => {
     }
   }
 
+  const onResetParams = () => {
+    setFilters({})
+    setKind('')
+    setForWho('')
+    setFurniture('')
+    setAdded('')
+  }
+
+  const toggleParams = () => {
+    onResetParams()
+    setIsParams(!isParams)
+  }
+
   const onReset = () => {
     setPosition(null)
     setReady(false)
+    onResetParams()
+    setIsParams(false)
   }
 
   useEffect(() => {
@@ -104,14 +119,19 @@ export const App = () => {
             <button className="App-button" onClick={getRandomPosition}>
               Выбрать позу рандомно 
             </button>
-            <button onClick={() => setIsParams(!isParams)} className="App-button">
-              Выбрать по параметрам
+            <button
+              onClick={toggleParams}
+              className="App-button"
+            >
+              {isParams ? 'Сбросить параметры' : 'Выбрать по параметрам'}
             </button>
           </div>
           {isParams ?
             <div className="App-chose__params">
               <div className="App-chose-params">
-                <p className="App-chose-params__title">Выбери предмет мебели</p>
+                <p className="App-chose-params__title">
+                  Выбери место
+                </p>
                 <select
                   className="App-chose-params__select"
                   value={furnitue}
