@@ -3,7 +3,7 @@ import './App.css';
 import { furnitureVariants, positions, forVariants, addedVariants, kindVariants, forFilters } from './mock'
 
 const getRandom = (number) => {
-  return Math.ceil(number * Math.random())
+  return Math.floor(number * Math.random())
 }
 
 const getRandomArray = (array) => {
@@ -26,7 +26,7 @@ export const App = () => {
       setPosition(position)
       setReady(true) 
     } else {
-      console.log(getRandom(10))
+      console.error('position not found')
     }
   }
 
@@ -53,9 +53,6 @@ export const App = () => {
   }, [furnitue, forWho, added, kind])
 
   const filterPositions = useMemo(() => {
-    console.log({
-      filters
-    })
     return positions.filter(position => 
       (!filters.added || filters.added === position.added) &&
       (!filters.furniture || filters.furniture === position.furniture) &&
