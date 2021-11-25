@@ -1,6 +1,13 @@
 import { useEffect, useMemo, useState } from 'react';
 import './App.css';
-import { furnitureVariants, positions, forVariants, addedVariants, kindVariants, forFilters } from './mock'
+import {
+  furnitureVariants,
+  positions,
+  forVariants,
+  addedVariants,
+  kindVariants,
+  forFilters
+} from './mock'
 
 const getRandom = (number) => {
   return Math.floor(number * Math.random())
@@ -54,10 +61,20 @@ export const App = () => {
 
   const filterPositions = useMemo(() => {
     return positions.filter(position => 
-      (!filters.added || filters.added === position.added) &&
-      (!filters.furniture || filters.furniture === position.furniture) &&
-      (!filters.kind || position.kind.length <= 0 || position.kind.includes(filters.kind)) &&
-      (!filters.for || filters.for.includes(position.for))
+      (
+        !filters.added ||
+        filters.added === position.added
+      ) && (
+        !filters.furniture ||
+        filters.furniture === position.furniture
+      ) && (
+        !filters.kind ||
+        position.kind.length <= 0 ||
+        position.kind.includes(filters.kind)
+      ) && (
+        !filters.for ||
+        filters.for.includes(position.for)
+      )
     ) 
   }, [filters])
 
@@ -80,7 +97,9 @@ export const App = () => {
           </div>
         </div> :
         <div className="App-chose">
-          <p className="App-chose__title">Выбралось {filterPositions.length} позиций</p>
+          <p className="App-chose__title">
+            Выбралось {filterPositions.length} позиций
+          </p>
           <div className="App-chose__buttons">
             <button className="App-button" onClick={getRandomPosition}>
               Выбрать позу рандомно 
@@ -107,7 +126,9 @@ export const App = () => {
                 </select>
               </div>
               <div className="App-chose-params">
-                <p className="App-chose-params__title">Выбери для кого поза</p>
+                <p className="App-chose-params__title">
+                  Выбери для кого поза
+                </p>
                 <select
                   className="App-chose-params__select"
                   value={forWho}
@@ -122,7 +143,9 @@ export const App = () => {
                 </select>
               </div>
               <div className="App-chose-params">
-                <p className="App-chose-params__title">Выбери что будем использовать</p>
+                <p className="App-chose-params__title">
+                  Выбери что будем использовать
+                </p>
                 <select
                   className="App-chose-params__select"
                   value={added}
@@ -137,7 +160,9 @@ export const App = () => {
                 </select>
               </div>
               <div className="App-chose-params">
-                <p className="App-chose-params__title">Выбери вид секса</p>
+                <p className="App-chose-params__title">
+                  Выбери вид секса
+                </p>
                 <select
                   className="App-chose-params__select"
                   value={kind}
@@ -153,7 +178,8 @@ export const App = () => {
               </div>
             </div> :
             <div className="App-chose__description">
-              Ты можешь выбрать позу случайно. А можешь выбрать параметры, чего именно тебе сегодня хочется
+              Ты можешь выбрать позу случайно.{' '}
+              А можешь выбрать параметры, чего именно тебе сегодня хочется
             </div>
           }
         </div>  
@@ -161,7 +187,9 @@ export const App = () => {
         }
       </div>
       <footer className="App-footer">
-        {isReady && <button className="App-button" onClick={onReset}>Заново</button>}
+        {isReady && <button className="App-button" onClick={onReset}>
+          Заново
+        </button>}
       </footer>
     </div>
   );
