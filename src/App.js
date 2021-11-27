@@ -7,7 +7,8 @@ import {
   addedVariants,
   kindVariants,
   forFilters,
-  statusVariants
+  statusVariants,
+  levelVariants
 } from './mock'
 
 const getRandom = (number) => {
@@ -26,7 +27,8 @@ export const App = () => {
   const [added, setAdded] = useState('')
   const [forWho, setForWho] = useState('')
   const [kind, setKind] = useState('')
-  const [status, setStatus] = useState('новая')
+  const [status, setStatus] = useState('')
+  const [level, setLevel] = useState('')
   const [filters, setFilters] = useState({})
 
   const getRandomPosition = () => {
@@ -45,11 +47,15 @@ export const App = () => {
     setForWho('')
     setFurniture('')
     setAdded('')
-    setStatus('новая')
+    setStatus('')
+    setLevel('')
   }
 
   const toggleParams = () => {
     onResetParams()
+    if (!isParams) {
+      setStatus('новая')
+    }
     setIsParams(!isParams)
   }
 
@@ -74,8 +80,12 @@ export const App = () => {
   }
 
   const getButton = () => (
-    <button class="App-button">
-      Выбрать позу рандомно
+    <button
+      className="App-button"
+      onClick={getRandomPosition}
+      disabled={!filterPositions.length}
+    >
+      {getButtonText()}
     </button>
   )
 
@@ -96,8 +106,11 @@ export const App = () => {
     if (status) {
       filtersObj.status = status
     }
+    if (level) {
+      filtersObj.level = level
+    }
      setFilters(filtersObj) 
-  }, [furnitue, forWho, added, kind, status])
+  }, [furnitue, forWho, added, kind, status, level])
 
   const filterPositions = useMemo(() => {
     return positions.filter(position => 
@@ -118,6 +131,9 @@ export const App = () => {
       ) && (
         !filters.status ||
         filters.status === position.status
+      ) && (
+        !filters.level ||
+        filters.level === position.level
       )
     ) 
   }, [filters])
@@ -126,131 +142,147 @@ export const App = () => {
     <div className="App">
       <header className="App-header">
         {isReady ? 'Ты выбрала позу - ' + position.name :
-        'Предлагаю тебе выбрать, что сегодня новенького мы попробуем?'}
+        'Предлагаю тебе выбрать, чем мы сегодня займемся?'}
       </header>
       <div className="App-content">
         {isReady ?
-        <div className="App-result">
-          <img
-            className="App-result__image"
-            src={position.image}
-            alt="error"
-          />
-          <div className="App-result__description">
-            {position.description}
-          </div>
-        </div> :
-        <div className="App-chose">
-          <p className="App-chose__title">
-            Выбралось {filterPositions.length} позиций
-          </p>
-          <div className="App-chose__buttons">
-            {getButton()}
-            <button
-              onClick={toggleParams}
-              className="App-button"
-            >
-              {isParams ? 'Сбросить параметры' : 'Выбрать по параметрам'}
-            </button>
-          </div>
-          {isParams ?
-            <div className="App-chose__params">
-               <div className="App-chose-params">
-                <p className="App-chose-params__title">
-                  Выбери новую, редкую или обычную
-                </p>
-                <select
-                  className="App-chose-params__select"
-                  value={status}
-                  onChange={(event) => {
-                    setStatus(event.target.value)
-                  }}
-                >
-                  <option value=''>Любая</option>
-                  {statusVariants.map((option, i) =>
-                    <option key={i}>{option}</option>
-                  )}
-                </select>
-              </div>
-              <div className="App-chose-params">
-                <p className="App-chose-params__title">
-                  Выбери место
-                </p>
-                <select
-                  className="App-chose-params__select"
-                  value={furnitue}
-                  onChange={(event) => {
-                    setFurniture(event.target.value)
-                  }}
-                >
-                  <option value=''>Любое</option>
-                  {furnitureVariants.map((option, i) =>
-                    <option key={i}>{option}</option>
-                  )}
-                </select>
-              </div>
-              <div className="App-chose-params">
-                <p className="App-chose-params__title">
-                  Выбери для кого поза
-                </p>
-                <select
-                  className="App-chose-params__select"
-                  value={forWho}
-                  onChange={(event) => {
-                    setForWho(event.target.value)
-                  }}
-                >
-                  <option value="">Неважно</option>
-                  {forVariants.map((option, i) =>
-                    <option key={i}>{option}</option>
-                  )}
-                </select>
-              </div>
-              <div className="App-chose-params">
-                <p className="App-chose-params__title">
-                  Выбери что будем использовать
-                </p>
-                <select
-                  className="App-chose-params__select"
-                  value={added}
-                  onChange={(event) => {
-                    setAdded(event.target.value)
-                  }}
-                >
-                  <option value="">Неважно</option>
-                  {addedVariants.map((option, i) =>
-                    <option key={i}>{option}</option>
-                  )}
-                </select>
-              </div>
-              <div className="App-chose-params">
-                <p className="App-chose-params__title">
-                  Выбери вид секса
-                </p>
-                <select
-                  className="App-chose-params__select"
-                  value={kind}
-                  onChange={(event) => {
-                    setKind(event.target.value)
-                  }}
-                >
-                  <option value="">Любой</option>
-                  {kindVariants.map((option, i) =>
-                    <option key={i}>{option}</option>
-                  )}
-                </select>
-              </div>
-              <div className="App-chose__buttons">
-                {getButton()}
-              </div>
-            </div> :
-            <div className="App-chose__description">
-              Ты можешь выбрать позу случайно.{' '}
-              А можешь выбрать параметры, чего именно тебе сегодня хочется
+          <div className="App-result">
+            <img
+              className="App-result__image"
+              src={position.image}
+              alt="error"
+            />
+            <div className="App-result__description">
+              {position.description}
             </div>
-          }
-        </div>  
-
+          </div> :
+          <div className="App-chose">
+            <p className="App-chose__title">
+              Выбралось {filterPositions.length} позиций
+            </p>
+            <div className="App-chose__buttons">
+              {getButton()}
+              <button
+                onClick={toggleParams}
+                className="App-button"
+              >
+                {isParams ? 'Сбросить параметры' : 'Выбрать по параметрам'}
+              </button>
+            </div>
+            {isParams ?
+              <div className="App-chose__params">
+                <div className="App-chose-params">
+                  <p className="App-chose-params__title">
+                    Выбери новую, редкую или обычную  позу
+                  </p>
+                  <select
+                    className="App-chose-params__select"
+                    value={status}
+                    onChange={(event) => {
+                      setStatus(event.target.value)
+                    }}
+                  >
+                    <option value=''>Любая</option>
+                    {statusVariants.map((option, i) =>
+                      <option key={i}>{option}</option>
+                    )}
+                  </select>
+                </div>
+                <div className="App-chose-params">
+                  <p className="App-chose-params__title">
+                    Выбери место
+                  </p>
+                  <select
+                    className="App-chose-params__select"
+                    value={furnitue}
+                    onChange={(event) => {
+                      setFurniture(event.target.value)
+                    }}
+                  >
+                    <option value=''>Любое</option>
+                    {furnitureVariants.map((option, i) =>
+                      <option key={i}>{option}</option>
+                    )}
+                  </select>
+                </div>
+                <div className="App-chose-params">
+                  <p className="App-chose-params__title">
+                    Выбери для кого поза
+                  </p>
+                  <select
+                    className="App-chose-params__select"
+                    value={forWho}
+                    onChange={(event) => {
+                      setForWho(event.target.value)
+                    }}
+                  >
+                    <option value="">Неважно</option>
+                    {forVariants.map((option, i) =>
+                      <option key={i}>{option}</option>
+                    )}
+                  </select>
+                </div>
+                <div className="App-chose-params">
+                  <p className="App-chose-params__title">
+                    Выбери что будем использовать
+                  </p>
+                  <select
+                    className="App-chose-params__select"
+                    value={added}
+                    onChange={(event) => {
+                      setAdded(event.target.value)
+                    }}
+                  >
+                    <option value="">Неважно</option>
+                    {addedVariants.map((option, i) =>
+                      <option key={i}>{option}</option>
+                    )}
+                  </select>
+                </div>
+                <div className="App-chose-params">
+                  <p className="App-chose-params__title">
+                    Выбери вид секса
+                  </p>
+                  <select
+                    className="App-chose-params__select"
+                    value={kind}
+                    onChange={(event) => {
+                      setKind(event.target.value)
+                    }}
+                  >
+                    <option value="">Любой</option>
+                    {kindVariants.map((option, i) =>
+                      <option key={i}>{option}</option>
+                    )}
+                  </select>
+                </div>
+                <div className="App-chose-params">
+                  <p className="App-chose-params__title">
+                    Выбери сложность позы
+                  </p>
+                  <select
+                    className="App-chose-params__select"
+                    value={level}
+                    onChange={(event) => {
+                      setLevel(event.target.value)
+                    }}
+                  >
+                    <option value="">Любая</option>
+                    {levelVariants.map((option, i) =>
+                      <option key={i}>{option}</option>
+                    )}
+                  </select>
+                </div>
+                <div className="App-chose__buttons">
+                  {getButton()}
+                </div>
+              </div> :
+              <div className="App-chose__description">
+                Ты можешь выбрать позу случайно.{' '}
+                А можешь выбрать параметры, чего именно тебе сегодня хочется
+              </div>
+            }
+          </div>  
         }
       </div>
       <footer className="App-footer">
