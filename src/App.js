@@ -6,7 +6,8 @@ import {
   forVariants,
   addedVariants,
   kindVariants,
-  forFilters
+  forFilters,
+  statusVariants
 } from './mock'
 
 const getRandom = (number) => {
@@ -25,6 +26,7 @@ export const App = () => {
   const [added, setAdded] = useState('')
   const [forWho, setForWho] = useState('')
   const [kind, setKind] = useState('')
+  const [status, setStatus] = useState('новая')
   const [filters, setFilters] = useState({})
 
   const getRandomPosition = () => {
@@ -43,6 +45,7 @@ export const App = () => {
     setForWho('')
     setFurniture('')
     setAdded('')
+    setStatus('новая')
   }
 
   const toggleParams = () => {
@@ -71,8 +74,11 @@ export const App = () => {
     if (kind) {
       filtersObj.kind = kind
     }
+    if (status) {
+      filtersObj.status = status
+    }
      setFilters(filtersObj) 
-  }, [furnitue, forWho, added, kind])
+  }, [furnitue, forWho, added, kind, status])
 
   const filterPositions = useMemo(() => {
     return positions.filter(position => 
@@ -90,6 +96,9 @@ export const App = () => {
       ) && (
         !filters.for ||
         filters.for.includes(position.for)
+      ) && (
+        !filters.status ||
+        filters.status === position.status
       )
     ) 
   }, [filters])
@@ -129,6 +138,23 @@ export const App = () => {
           </div>
           {isParams ?
             <div className="App-chose__params">
+               <div className="App-chose-params">
+                <p className="App-chose-params__title">
+                  Выбери новую, редкую или обычную
+                </p>
+                <select
+                  className="App-chose-params__select"
+                  value={status}
+                  onChange={(event) => {
+                    setStatus(event.target.value)
+                  }}
+                >
+                  <option value=''>Любая</option>
+                  {statusVariants.map((option, i) =>
+                    <option key={i}>{option}</option>
+                  )}
+                </select>
+              </div>
               <div className="App-chose-params">
                 <p className="App-chose-params__title">
                   Выбери место
