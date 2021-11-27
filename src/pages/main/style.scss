@@ -1,0 +1,93 @@
+.Main {
+  text-align: center;
+  background-color: #282c34;
+  min-height: 100vh;
+}
+
+.Main-chose,
+.Main-result  {
+  padding: 0 10vw;
+  max-width: 600px;
+  margin: auto;
+}
+
+.Main-result__image {
+  max-width: 100%;
+  max-height: 40vh;
+}
+
+.Main-chose__buttons {
+  margin-top: 5vh;
+  display: flex;
+  justify-content: space-between;
+}
+
+.Main-chose__description,
+.Main-result__description {
+  color: white;
+  font-size: 3vh;
+  margin-top: 5vh;
+}
+
+.Main-chose__title {
+  color: white;
+  font-size: 3vh;
+}
+
+.Main-chose__params {
+  margin-top: 5vh;
+}
+
+.Main-chose-params + .Main-chose-params {
+  margin-top: 10px;
+}
+
+.Main-chose-params {
+  text-align: left;
+}
+
+.Main-chose-params__title {
+  color: white;
+  font-size: 3vh;
+}
+
+.Main-chose-params__select {
+  font-size: 3vh;
+  background-color: wheat;
+  padding: 5px;
+  border-radius: 10px;
+  border: 0;
+  outline: 0;
+}
+
+.Main-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 5vh;
+  color: white;
+  padding: 5vh 5vw;
+}
+
+.Main-footer {
+  padding: 5vh 5vw;
+}
+
+.Main-button {
+  background-color:wheat;
+  font-size: 3vh;
+  max-width: 200px;
+  width: 50%;
+  border-radius: 10px;
+  cursor: pointer;
+  padding: 5px;
+  border: 0;
+  outline: 0;
+}
+
+.Main-button:hover,
+.Main-button:active,
+.Main-button:focus {
+  opacity: 0.8;
+}
