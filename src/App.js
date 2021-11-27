@@ -60,6 +60,25 @@ export const App = () => {
     setIsParams(false)
   }
 
+  const getButtonText = () => {
+    if (filterPositions.length) {
+      if (isParams) {
+        if (filterPositions.length === 1) {
+          return 'Показать позу' 
+        }
+        return `Выбрать рандомно среди ${filterPositions.length} подобранных`
+      }
+      return 'Выбрать позу рандомно' 
+    }
+    return 'Невозможно выбрать'
+  }
+
+  const getButton = () => (
+    <button class="App-button">
+      Выбрать позу рандомно
+    </button>
+  )
+
   useEffect(() => {
     const filtersObj = {}
     if (furnitue) {
@@ -126,9 +145,7 @@ export const App = () => {
             Выбралось {filterPositions.length} позиций
           </p>
           <div className="App-chose__buttons">
-            <button className="App-button" onClick={getRandomPosition}>
-              Выбрать позу рандомно 
-            </button>
+            {getButton()}
             <button
               onClick={toggleParams}
               className="App-button"
@@ -166,7 +183,7 @@ export const App = () => {
                     setFurniture(event.target.value)
                   }}
                 >
-                  <option></option>
+                  <option value=''>Любое</option>
                   {furnitureVariants.map((option, i) =>
                     <option key={i}>{option}</option>
                   )}
@@ -183,7 +200,7 @@ export const App = () => {
                     setForWho(event.target.value)
                   }}
                 >
-                  <option></option>
+                  <option value="">Неважно</option>
                   {forVariants.map((option, i) =>
                     <option key={i}>{option}</option>
                   )}
@@ -200,7 +217,7 @@ export const App = () => {
                     setAdded(event.target.value)
                   }}
                 >
-                  <option></option>
+                  <option value="">Неважно</option>
                   {addedVariants.map((option, i) =>
                     <option key={i}>{option}</option>
                   )}
@@ -217,11 +234,14 @@ export const App = () => {
                     setKind(event.target.value)
                   }}
                 >
-                  <option></option>
+                  <option value="">Любой</option>
                   {kindVariants.map((option, i) =>
                     <option key={i}>{option}</option>
                   )}
                 </select>
+              </div>
+              <div className="App-chose__buttons">
+                {getButton()}
               </div>
             </div> :
             <div className="App-chose__description">
