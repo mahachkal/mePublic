@@ -30,6 +30,9 @@ export const App = () => {
   const [status, setStatus] = useState('')
   const [level, setLevel] = useState('')
   const [filters, setFilters] = useState({})
+  const [isAll, setIsAll] = useState(false)
+  const [isInput, setIsInput] = useState(false)
+  const [password, setPassword] = useState('')
 
   const getRandomPosition = () => {
     const position = getRandomArray(filterPositions)
@@ -64,6 +67,7 @@ export const App = () => {
     setReady(false)
     onResetParams()
     setIsParams(false)
+    setIsAll(false)
   }
 
   const getButtonText = () => {
@@ -141,11 +145,11 @@ export const App = () => {
   return (
     <div className="App">
       <header className="App-header">
-        {isReady ? 'Ты выбрала позу - ' + position.name :
+        {isAll ? '' : isReady ? 'Ты выбрала позу - ' + position.name :
         'Предлагаю тебе выбрать, чем мы сегодня займемся?'}
       </header>
       <div className="App-content">
-        {isReady ?
+        {!isAll && isReady ?
           <div className="App-result">
             <img
               className="App-result__image"
@@ -168,6 +172,29 @@ export const App = () => {
               >
                 {isParams ? 'Сбросить параметры' : 'Выбрать по параметрам'}
               </button>
+              {isInput ? <div>
+                <input value={password} onChange={(event) => setPassword(event.currentTarget.value)} />
+                <button onClick={() => {
+                  if (password === '49') {
+                    setIsAll(true)
+                    setIsInput(false)
+                    setPassword('')
+                  }
+                  setIsInput(false)
+                }}>Отправить</button>
+              </div> : <button
+                onClick={() => {
+                  if(isAll) {
+                    setIsAll(false)
+                    setIsInput(false)
+                   } else {
+                    setIsInput(true)
+                  }
+                }}
+                className="App-button"
+              >
+                {isAll ? 'Сбросить' : 'Показать все'}
+              </button>}
             </div>
             {isParams ?
               <div className="App-chose__params">
@@ -282,11 +309,28 @@ export const App = () => {
                 А можешь выбрать параметры, чего именно тебе сегодня хочется
               </div>
             }
+            {isAll && <div>
+              {filterPositions.map(pos => 
+                <div className="App-result">
+                   <p className="App-chose__title">
+                    {pos.name}
+                  </p>
+                  <img
+                    className="App-result__image"
+                    src={pos.image}
+                    alt="error"
+                  />
+                  <p className="App-result__description">
+                    {pos.description}
+                  </p>
+                </div>
+              )}
+            </div>}
           </div>  
         }
       </div>
       <footer className="App-footer">
-        {isReady && <button className="App-button" onClick={onReset}>
+        {(isReady || isAll) && <button className="App-button" onClick={onReset}>
           Заново
         </button>}
       </footer>
